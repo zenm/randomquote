@@ -1,0 +1,15 @@
+* {
+  border: 1px solid pink;
+}
+
+.welcome-section{
+  background-color: #EFD6B3;
+}
+
+.quote-section{
+  background-color: #469CF2;
+}
+
+.tweet-quote{
+  background-color: #FAFAF5;
+}
