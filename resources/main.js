@@ -1,5 +1,6 @@
 var url = "https://quotesondesign.com/wp-json/posts";
-
+var quoteText = "";
+var quoteAuthor ="";
 
 $(document).ready(function() {
     $(".next-quote").on("click", function(){
@@ -14,12 +15,16 @@ $(document).ready(function() {
         "callback" : "?"
       },
       success: function(json){
-        alert(json[0].content);
+        quoteText = json[0].content/*.slice(3,quoteText.length-5)*/;
+        quoteAuthor = json[0].title;
         }
       });
+     $(".quote-text").html(quoteText);
+     $(".quote-auth").html(quoteAuthor);
     });
+    console.log(quoteAuthor);
     $(".twitter-button").on("click", function(){
-      //in progress
+
       alert("twitter word");
   });
 });
