@@ -1,35 +1,58 @@
 var url = "https://quotesondesign.com/wp-json/posts";
-var quoteText = "";
+var quoteText = "global";
 var quoteAuthor ="";
+var twitterURL = "https://twitter.com/intent/tweet?text=things to say&via=@linospeaks";
 
 $(document).ready(function() {
-    $(".next-quote").on("click", function(){
-    $.ajax({
-      url: url,
-      method: "GET",
-      cache: false,
-      dataType: "json",
-      data: {
-        "filter[orderby]" : "rand",
-        "filter[posts_per_page]" : 1,
-        "callback" : "?"
-      },
-      success: function(json){
-        quoteText = json[0].content/*.slice(3,quoteText.length-5)*/;
-        quoteAuthor = json[0].title;
-        }
-      });
-     $(".quote-text").html(quoteText);
-     $(".quote-auth").html(quoteAuthor);
-    });
-    console.log(quoteAuthor);
-    $(".twitter-button").on("click", function(){
+  $.ajax({
+    url: url,
+    method: "GET",
+    cache: false,
+    dataType: "json",
+    data: {
+      "filter[orderby]" : "rand",
+      "filter[posts_per_page]" : 1,
+      "callback" : "?"
+    },
+    success: function(json){
+      quoteText = json[0].content;
+      quoteAuthor = json[0].title;
+      $(".quote-text").html(quoteText);
+      $(".quote-auth").html(quoteAuthor);
+      console.log(quoteText);
+    }
+  });
+});
 
-      alert("twitter word");
+$(".next-quote").on("click", function(){
+  $.ajax({
+    url: url,
+    method: "GET",
+    cache: false,
+    dataType: "json",
+    data: {
+      "filter[orderby]" : "rand",
+      "filter[posts_per_page]" : 1,
+      "callback" : "?"
+    },
+    success: function(json){
+      quoteText = json[0].content;
+      quoteAuthor = json[0].title;
+      $(".quote-text").html(quoteText);
+      $(".quote-auth").html(quoteAuthor);
+    }
   });
 });
 
 
+$(".twitter-button").on("click", function(){
+  //Needs to open twitter window here.
+  alert(quoteText);
+  window.open(twitterURL);
+});
+
+
+// Need function to add to url.
 
 
 
