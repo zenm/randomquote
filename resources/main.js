@@ -25,7 +25,7 @@ function getQuoteFromAPI(){
      quoteText = data.quote;
      quoteAuthor = data.author;
      $(".quote-text").html(quoteText);
-     $(".quote-auth").html(quoteAuthor);
+     $(".quote-author").html(quoteAuthor);
    }
  });
 }
