@@ -1,7 +1,7 @@
 var url = "https://quotesondesign.com/wp-json/posts";
-var quoteText = "global";
+var quoteText = "";
 var quoteAuthor ="";
-var twitterURL = "https://twitter.com/intent/tweet?text=things to say&via=@linospeaks";
+var twitterURL = "https://twitter.com/intent/tweet?text=";
 
 $(document).ready(function() {
   $.ajax({
@@ -44,59 +44,25 @@ $(".next-quote").on("click", function(){
   });
 });
 
+var quoteNoTags = function quoteNoTags(quoteText){
+  var quoteText = quoteText.substring(3,quoteText.length - 5);
+  return quoteText;
+}
+
+var quoteAndAuthorToTweet = function quoteAndAuthor (quoteNoTags, quoteAuthor){
+  var tweetQuoteAuthor = "";
+
+  //need to account for length of quote, author and empty space, dash, empty space.
+  if((quoteNoTags(quoteText).length + quoteAuthor.length + 3) <= 140){
+    tweetQuoteAuthor = quoteNoTags(quoteText) + " - " + quoteAuthor;
+    return tweetQuoteAuthor;
+  } else {
+    var quoteToShorten = quoteNoTags(quoteText);
+    tweetQuoteAuthor = quoteToShorten.substring(0, 140 - (quoteAuthor.length + 6)) + "... - " + quoteAuthor;
+    return tweetQuoteAuthor;
+  }
+}
 
 $(".twitter-button").on("click", function(){
-  //Needs to open twitter window here.
-  alert(quoteText);
-  window.open(twitterURL);
+  window.open(twitterURL+quoteAndAuthorToTweet(quoteNoTags, quoteAuthor));
 });
-
-
-// Need function to add to url.
-
-
-
-//
-// $.ajax({
-//    url: 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en',
-//    data: {
-//       format: 'json'
-//    },
-//    error: function() {
-//       $('.quote-text').html('<p>An error has occurred</p>');
-//    },
-//    dataType: 'application/json',
-//    success: function(){
-//      alert("word");
-//    }
-// });
-
-
-
-// attempt 03MAY2017
-// $.post("https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en", function(json) {
-//   $(".quote-text").html(json);
-// });
-
-
-// $.ajax({
-//    url: 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?',
-//    data: {
-//       format: 'jsonp'
-//    },
-//    error: function() {
-//       $('.quote-text').html('<p>An error has occurred</p>');
-//    },
-//    dataType: 'jsonp',
-//    success: function(){
-//      alert("word");
-//    }
-
-
-
-
-//
-// $.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en", function(data){
-//   $(".quote_text").html(data);
-//   alert( "Load was performed." );
-// });
