@@ -29,14 +29,40 @@ function getQuoteFromAPI(){
    }
  });
 }
+
+//get a different background-color hue using hsla
+var randomColor = random360();
+
+function random360(){
+  return Math.floor(Math.random()*360) + 1;
+}
+
+function colorAndTransition(){
+  $('body').css("background-color", 'hsla(' + randomColor +', 30%, 30%, .9)').css("transition", 'background-color .9s ease .2s');
+
+$('.quote-section, .next-quote').css("background-color", 'hsla(' + randomColor +', 30%, 85%, .9)').css("transition", 'background-color .9s ease .2s');
+
+  $('.next-quote').hover(function(){
+    $(this).css("background-color",  'hsla(' + randomColor +', 50%, 35%, .9)');
+    }, function () {
+      $(this).css("background-color",  'hsla(' + randomColor +', 50%, 70%, .9)')
+  });
+
+
+}
+
 //get a quote on page load.
 $(document).ready(function() {
   getQuoteFromAPI();
+  colorAndTransition();
 });
 
 // get another quote on click
 $(".next-quote").on("click", function(){
+  randomColor = random360();
   getQuoteFromAPI();
+  colorAndTransition();
+
 });
 
 //need to convert special characters with percent encoding when passing as URL parameter.
